@@ -128,7 +128,7 @@ export default function Scan() {
                     <h1>Scan Customer's QR code</h1>
                     <div>
                         <QrReader
-                            delay={1000}
+                            delay={500}
                             onError={err => console.log(err)}
                             onScan={(res) => {
                                 setResult(res)
@@ -139,11 +139,9 @@ export default function Scan() {
                                 width: '100%',
                             }}
                         />
-                        {/* <h1>{result}</h1> */}
                     </div>
                 </div>}
-
-            {showAmount & !displayPin &&
+            {showAmount && !displayPin &&
                 <div style={{ width: '100%', maxWidth: '500px' }} >
                     <div style={{ margin: '50px auto', textAlign: 'left' }} >
                         <h1 style={{ margin: 0 }} > <span> Hello,</span></h1>
