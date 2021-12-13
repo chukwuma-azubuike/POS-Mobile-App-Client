@@ -5,6 +5,7 @@ import './style.css'
 import CircularProgress from '@mui/material/CircularProgress';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BASE_URL } from '../api/api'
 
 export default function Scan() {
 
@@ -26,7 +27,7 @@ export default function Scan() {
             setProcessPay(true)
             var data = JSON.stringify({ name: sessionStorage.getItem('CustomerName'), pin: pin, amount: amount });
             console.log(data)
-            const url = 'http://localhost:8080/withdraw'
+            const url = `${BASE_URL}/verify-customer`
 
             const options = {
                 method: 'POST',
@@ -40,7 +41,7 @@ export default function Scan() {
                 .then(res => res.json())
                 .then(result => {
                     console.log(result)
-                    if (result.status) {
+                    if (result.success) {
                         toast.success(result.data, {
                             position: "top-center",
                             autoClose: 3000,
@@ -58,7 +59,7 @@ export default function Scan() {
                             setAmount('')
                         }, 3000)
                     } else {
-                        toast.error(result.message, {
+                        toast.error(result.errorMessage, {
                             position: "top-center",
                             autoClose: 3000,
                             hideProgressBar: false,

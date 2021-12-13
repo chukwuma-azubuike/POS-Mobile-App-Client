@@ -4,6 +4,7 @@ import applogo from '../assets/applogo.png'
 import './style.css';
 import CircularProgress from '@mui/material/CircularProgress';
 import { ToastContainer, toast } from 'react-toastify';
+import { BASE_URL } from '../api/api'
 
 export default function Login() {
 
@@ -19,7 +20,7 @@ export default function Login() {
         seLoading(true)
 
         var data = JSON.stringify({ email: email, password: password });
-        const url = 'http://localhost:8080/login'
+        const url = `${BASE_URL}/login`
 
         const options = {
             method: 'POST',
@@ -32,8 +33,8 @@ export default function Login() {
         fetch(url, options)
             .then(res => res.json())
             .then(result => {
-                // console.log(result)
-                if (result.status) {
+                console.log(result)
+                if (result.success) {
                     toast.success(result.message, {
                         position: "top-center",
                         autoClose: 3000,
@@ -48,7 +49,7 @@ export default function Login() {
                     }, 1500)
                     sessionStorage.setItem('userDetails', true)
                 } else {
-                    toast.error(result.message, {
+                    toast.error(result.errorMessage, {
                         position: "top-center",
                         autoClose: 3000,
                         hideProgressBar: true,
